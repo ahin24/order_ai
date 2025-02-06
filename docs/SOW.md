@@ -1,0 +1,19 @@
+-Product Category Add,list
+-Products
+    --add
+        --Product image and videos
+    --list(Pagination)
+    --edit
+    --delete
+-Inventory 
+    --create
+    --list
+    --edit
+    --delete
+-Orders 
+    --list (Pagination)
+    --create
+        -- invoice
+    --edit
+    --cancel
+    --invoice

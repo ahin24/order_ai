@@ -1,0 +1,145 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  is_active Boolean  @default(true)
+  role      Roles    @default(User)
+
+  token Token[]
+  order Orders[]
+}
+
+enum Roles {
+  User
+  Admin
+  Supplier
+}
+
+model ProAuditLog {
+  id            Int         @id @default(autoincrement())
+  resource      String
+  trigger_time  DateTime    @default(now())
+  device_type   DeviceTypes @default(Web)
+  response_time String
+  meta_data     Json
+}
+
+enum DeviceTypes {
+  Web
+  Mobile
+}
+
+model Token {
+  id            Int        @id @default(autoincrement())
+  refresh_token String
+  type          TokenTypes @default(Refresh_token)
+  user_id       Int
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+enum TokenTypes {
+  Refresh_token
+}
+
+model Productcategory {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model Products {
+  id          Int                @id @default(autoincrement())
+  category_id Int
+  name        String
+  description String
+  unit        String
+  price       String
+  is_active   Boolean            @default(true)
+  imgVideos   ProductImgVideos[]
+
+  orderItems OrderItems[]
+  inventory  Inventory[]
+}
+
+model ProductImgVideos {
+  id         Int      @id @default(autoincrement())
+  product_id Int
+  product    Products @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  url        String
+  type       String // 'image' or 'video'
+}
+
+model Inventory {
+  id         Int      @id @default(autoincrement())
+  product_id Int
+  quantity   Int
+  updatedAt  DateTime @updatedAt
+
+  product Products @relation(fields: [product_id], references: [id], onDelete: Cascade)
+}
+
+model Orders {
+  id           Int          @id @default(autoincrement())
+  user_id      Int
+  quantity     Int
+  total_amount Float
+  order_status Order_Status @default(Pending)
+  order_date   DateTime     @default(now())
+  note         String
+  invoice_url  String
+
+  orderItems OrderItems[]
+  user       User         @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+enum Order_Status {
+  Pending
+  Paid
+  Cancelled
+}
+
+model OrderItems {
+  id         Int    @id @default(autoincrement())
+  product_id Int
+  order_id   Int
+  quantity   Int
+  price      Float
+  status     String
+
+  product Products @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  order   Orders   @relation(fields: [order_id], references: [id], onDelete: Cascade)
+}
+
+model Payments {
+  id              Int    @id @default(autoincrement())
+  order_id        Int
+  payment_id      String
+  total_amount    Float
+  discount_amount String
+  subtotal_amount String
+  status          payment_status    @default(Pending)
+}
+
+enum payment_status {
+  Pending
+  Paid
+  Failed
+}

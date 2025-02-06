@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .charts-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .chart-box {
+            width: 48%;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .list-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Dashboard</h2>
+
+        <!-- Charts Section -->
+        <div class="charts-container">
+            <div class="chart-box">
+                <h3>Sales Chart</h3>
+                <canvas id="salesChart"></canvas>
+            </div>
+
+            <div class="chart-box">
+                <h3>Users Chart</h3>
+                <canvas id="usersChart"></canvas>
+            </div>
+        </div>
+
+        <!-- List Section -->
+        <div class="list-box">
+            <h3>Recent Activities</h3>
+            <ul>
+                <li>User A signed up</li>
+                <li>Order #1234 was placed</li>
+                <li>New comment on a post</li>
+                <li>Admin updated settings</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for the charts
+        const salesData = {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [{
+                label: "Sales",
+                data: [100, 200, 300, 400, 500, 600],
+                backgroundColor: "rgba(54, 162, 235, 0.5)",
+                borderColor: "rgba(54, 162, 235, 1)",
+                borderWidth: 1
+            }]
+        };
+
+        const usersData = {
+            labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            datasets: [{
+                label: "Users",
+                data: [5, 10, 15, 25, 30, 40, 50],
+                backgroundColor: "rgba(255, 99, 132, 0.5)",
+                borderColor: "rgba(255, 99, 132, 1)",
+                borderWidth: 1
+            }]
+        };
+
+        // Render Sales Chart
+        new Chart(document.getElementById("salesChart"), {
+            type: "line",
+            data: salesData,
+            options: { responsive: true }
+        });
+
+        // Render Users Chart
+        new Chart(document.getElementById("usersChart"), {
+            type: "bar",
+            data: usersData,
+            options: { responsive: true }
+        });
+    </script>
+
+</body>
+</html>
