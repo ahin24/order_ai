@@ -11,23 +11,18 @@
     <style>
         body {
             background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9);
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
-        /* Navbar Styling */
         .navbar {
-            background: #464c50;
+            background: #2c3e50;
             padding: 15px 0;
-        }
-
-        .navbar-brand img {
-            height: 40px;
         }
 
         .nav-link {
             color: white !important;
-            margin-right: 20px;
-            font-weight: 500;
+            font-weight: 600;
+            transition: color 0.3s ease;
         }
 
         .nav-link:hover {
@@ -35,36 +30,59 @@
         }
 
         .card {
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             background: white;
             text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .icon-box {
-            font-size: 24px;
-            background-color: rgba(90, 103, 216, 0.1);
-            padding: 15px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-bottom: 10px;
-            color: #5a67d8;
-        }
-
-        .chart-container {
+            max-width: 700px;
+            margin: 0 auto;
             width: 100%;
-            height: 300px;
         }
 
-        .table-container {
-            overflow-x: auto;
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            transition: 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-color: #2980B9;
+            outline: none;
+            box-shadow: 0 0 8px rgba(41, 128, 185, 0.5);
+        }
+
+        .btn-primary {
+            background: #2980B9;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1b6391;
+            box-shadow: 0 4px 10px rgba(41, 128, 185, 0.3);
         }
 
         @media (max-width: 768px) {
-            .chart-container {
-                height: 250px;
+            .card {
+                max-width: 90%;
+                padding: 20px;
+            }
+
+            .d-flex {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-label {
+                width: 100% !important;
+                text-align: left !important;
+                margin-bottom: 5px;
             }
         }
     </style>
@@ -72,12 +90,9 @@
 
 <body>
 
-    <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="/logo.png" alt="Logo">
-            </a>
+            <a class="navbar-brand text-white" href="#">Dashboard</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -93,32 +108,26 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
-        <h2 class="text-center">Add Category</h2>
+    <div class="container mt-3 text-center">
+        <button class="btn btn-primary me-2" onclick='document.location="http://localhost:2025/console/products/category-list"'>🔙 Back</button>
+        <!-- <button class="btn btn-secondary">Button 2</button> -->
+    </div>
 
-        <div class="card">
-            <h5 class="text-center">Category Data</h5>
-            <div class="w-96 bg-gray-900 p-8 rounded-lg shadow-lg">
-                <h2 class="text-2xl font-bold text-center mb-6 text-white">Sign In</h2>
-                <% if (error) { %> <!-- Check if error exists -->
-                    <p class="error-box">
-                        <%= error %>
-                    </p> <!-- Display error message -->
-                    <% } %>
-                        <form action="http://localhost:2025/console/products/add-product-category" method="POST">
-                            <div class="mb-4">
-                                <label for="name" class="block text-sm font-medium text-gray-300">Name</label>
-                                <input type="name" id="name" name="name" required
-                                    class="w-full px-3 py-2 input-field rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
-                            </div>
-                            <button type="submit" style="background-color: #2980B9;"
-                                class="w-full btn-primary text-white py-2 rounded-lg hover:shadow-lg transition">
-                                Add
-                            </button>
-                        </form>
-            </div>
+    <div class="container mt-5">
+        <h2 class="text-center text-dark">Add Category</h2>
+        <div class="card mt-4">
+            <% if (error) { %>
+                <p class="alert alert-danger"><%= error %></p>
+            <% } %>
+            <form action="http://localhost:2025/console/products/add-product-category" method="POST">
+                <div class="mb-3 d-flex align-items-center">
+                    <label for="name" class="form-label me-3" style="width: 200px; text-align: left;">Category Name</label>
+                    <input type="text" id="name" name="name" required class="input-field">
+                </div>
+                <button type="submit" class="btn btn-success w-50">Submit</button>
+            </form>
         </div>
     </div>
-</body>
 
+</body>
 </html>

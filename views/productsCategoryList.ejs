@@ -105,35 +105,22 @@
                 <table class="table table-bordered table-responsive">
                     <thead class="table-light">
                         <tr>
-                            <th>Email Address</th>
-                            <th>Provider</th>
-                            <th>Created</th>
-                            <th>Last Sign In</th>
-                            <th>User UID</th>
+                            <th>#Id</th>
+                            <th>Name</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>hello@simmple.com</td>
-                            <td>Google</td>
-                            <td>06 Nov, 2023 11:33</td>
-                            <td>06 Nov, 2023 11:33</td>
-                            <td>f3142fc19</td>
-                        </tr>
-                        <tr>
-                            <td>thomas@gmail.com</td>
-                            <td>Google</td>
-                            <td>06 Nov, 2023 11:29</td>
-                            <td>06 Nov, 2023 11:29</td>
-                            <td>f3142fc19</td>
-                        </tr>
-                        <tr>
-                            <td>markwilliam@hotmail.com</td>
-                            <td>Email</td>
-                            <td>06 Nov, 2023 11:21</td>
-                            <td>06 Nov, 2023 11:21</td>
-                            <td>f3142fc19</td>
-                        </tr>
+
+                        <% data?.list?.forEach(category=> { %>
+                            <tr>
+                                <td>
+                                    <%= category.id %>
+                                </td>
+                                <td>
+                                    <%= category.name %>
+                                </td>
+                            </tr>
+                            <% }); %>
                     </tbody>
                 </table>
             </div>

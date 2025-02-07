@@ -5,9 +5,9 @@ const productsController = require('./../../controllers/bulit-in-admin/products.
 /*** Views Route */
 router.get('/',productsController.showProductsListPage);
 router.get('/category-list',productsController.showProductsCategoryListPage);
-router.get('/category-add',productsController.showProductsCategoryAddPage)
+router.get('/category-add',productsController.showProductsCategoryAddPage);
 
 /*** Functionailty Route */
-router.get('/add-product-category',productsController.addProductCategory)
+router.post('/add-product-category',productsController.addProductCategory);
 
 module.exports = router;

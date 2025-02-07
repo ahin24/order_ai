@@ -60,7 +60,7 @@ enum TokenTypes {
   Refresh_token
 }
 
-model Productcategory {
+model ProductCategory {
   id   Int    @id @default(autoincrement())
   name String
 }
